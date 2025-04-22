@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { FaSun, FaMoon, FaCalculator, FaReceipt, FaArrowLeft } from 'react-icons/fa';
 import { useTheme } from 'next-themes';
 import { ThemeSwitcher } from '@/components/ThemeSwith';
+import { PaymentFactory } from '@/factories/PaymentFactory';
 
 type PaymentType = 'CREDIT_CARD' | 'DEBIT_CARD' | 'PAYPAL';
 
@@ -94,16 +95,8 @@ export default function PaymentApp() {
   };
 
   const getPaymentTypeName = (type: PaymentType) => {
-    switch (type) {
-      case 'CREDIT_CARD':
-        return 'Tarjeta de Crédito';
-      case 'DEBIT_CARD':
-        return 'Tarjeta de Débito';
-      case 'PAYPAL':
-        return 'PayPal';
-      default:
-        return type;
-    }
+    return PaymentFactory(type).getName()
+    
   };
 
   const getTaxPercentage = (amount: number, tax: number) => {
